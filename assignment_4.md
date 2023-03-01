@@ -17,46 +17,46 @@ This exercise explores a dataset containing the human development index (`HDI`) 
 
 
 First, we load the data using the following code.
-```{r, eval=FALSE}
+```{r}
 economist_data <- read_csv("https://raw.githubusercontent.com/nt246/NTRES-6100-data-science/master/datasets/EconomistData.csv")
 ```
 
 **1.1 Show the first few rows of `economist_data`.**
-```{r, eval=FALSE}
+```{r}
 head(economist_data)
 ```
 <br> 
   
 **1.2 Expore the relationship between human development index (`HDI`) and corruption perception index (`CPI`) with a scatter plot as the following.**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_point(mapping = aes(x = CPI, y = HDI)) 
 ```
 <br>
 
 **1.3 Make the color of all points in the previous plot red.**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_point(mapping = aes(x = CPI, y = HDI, color="red")) 
 ```
 <br>
 
 **1.4 Color the points in the previous plot according to the `Region` variable, and set the size of points to 2.**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_point(mapping = aes(x = CPI, y = HDI, color= Region, size=2)) 
 ```
 <br>
 
 **1.5 Set the size of the points proportional to `HDI.Rank`**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_point(mapping = aes(x = CPI, y = HDI, color= Region, size=HDI.Rank)) 
 ```
 <br>
 
 **1.6 Fit a smoothing line to all the data points in the scatter plot from Excercise 1.4**
-```{r, eval=FALSE}
+```{r}
  ggplot(data = economist_data) + 
   geom_point(mapping = aes(x = CPI, y = HDI, color= Region)) +
   geom_smooth(mapping = aes(x = CPI, y = HDI))
@@ -65,7 +65,7 @@ ggplot(data = economist_data) +
 
 **1.7 Fit a separate straight line for each region instead, and turn off the confidence interval**
 
-```{r, eval=FALSE}
+```{r}
  ggplot(data = economist_data, aes(x = CPI, y = HDI, color= Region)) + 
   geom_point() +
   geom_smooth(method="lm", se=FALSE)
@@ -73,7 +73,7 @@ ggplot(data = economist_data) +
 <br>
 
 **1.8 Building on top of the previous plot, show each `Region` in a different facet.**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data, aes(x = CPI, y = HDI, color= Region)) + 
   geom_point() +
   geom_smooth(method="lm", se=FALSE) +
@@ -82,14 +82,14 @@ ggplot(data = economist_data, aes(x = CPI, y = HDI, color= Region)) +
 <br>
 
 **1.9 Show the distribution of `HDI` in each region using density plot. Set the transparency to 0.5**
-```{r, eval=FALSE}
+```{r}
 ggplot(economist_data) +
   geom_density(aes(fill=Region, x= HDI), alpha=0.5)
 ```
 <br>
 
 **1.10 Show the distribution of `HDI` in each region using histogram and facetting.**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_histogram(mapping=aes(x=HDI, color= Region)) +
   facet_wrap(~ Region)
@@ -97,7 +97,7 @@ ggplot(data = economist_data) +
 <br>
 
 **1.11 Show the distribution of `HDI` in each region using a box plot. Set the transparency of these boxes to 0.5 and do not show outlier points with the box plot. Instead, show all data points for each country in the same plot. (Hint: `geom_jitter()` or `position_jitter()` might be useful.)**
-```{r, eval=FALSE}
+```{r}
 ggplot(data = economist_data) + 
   geom_boxplot(mapping=aes(x = CPI, y = HDI, color= Region))
 
@@ -105,14 +105,14 @@ ggplot(data = economist_data) +
 <br>
 
 **1.12 Show the count of countries in each region using a bar plot.**
-```{r, eval=FALSE}
+```{r}
 ggplot(economist_data)+
   geom_bar(mapping=aes(x=Region))
 ```
 <br>
 
 **1.13 You have now created a variety of different plots of the same dataset. Which of your plots do you think are the most informative? Describe briefly the major trends that you see in the data.**
-```{r, eval=FALSE}
+```{r}
 1.8 because you can see trends for each individual country while also comparing them to one another. 
 ```
 <br>
@@ -123,38 +123,38 @@ ggplot(economist_data)+
 This exercise uses the `Theoph` data frame (comes with your R installation), which has 132 rows and 5 columns of data from an experiment on the pharmacokinetics of the anti-asthmatic drug theophylline. Twelve subjects were given oral doses of theophylline then serum concentrations were measured at 11 time points over the next 25 hours. You can learn more about this dataset by running `?Theoph`
 
 Have a look at the data structure
-```{r, eval=FALSE}
+```{r}
 kable(head(Theoph))
 ```
 For the following exercise, **transform the data as instructed**. Try to use `tidyverse` functions even if you are more comfortable with base-R solutions. Show the first **6 lines** of the transformed data in a table through RMarkdown **using the kable() function,** as shown above.
 
 **2.1 Select columns that contain a lower case “t” in the `Theoph` dataset. Do not manually list all the columns to include.**
-```{r, eval=FALSE}
+```{r}
 kable(select(Theoph, Wt))
 ```
 
 
 **2.2 Rename the `Wt` column to `Weight` and `conc` column to `Concentration` in the `Theoph` dataset.**
-```{r, eval=FALSE}
+```{r}
 colnames(Theoph)[colnames(Theoph)=="Wt"]="Weight"
 colnames(Theoph)[colnames(Theoph)=="conc"]="Concentration"
 ```
 
 
 **2.3 Extract the `Dose` greater than 4.5 and `Time` greater than the mean `Time`.**
-```{r, eval=FALSE}
+```{r}
 filter(Theoph, 'Dose'>4.5, 'Time'>mean(Theoph$Time))
 ```
 
 
 **2.4 Sort the `Theoph` dataset by `Wt` from smallest to largest and secondarily by Time from largest to smallest.**
-```{r, eval=FALSE}
+```{r}
 sort(Theoph$Time, decreasing=FALSE)
 ```
 
 
 **2.5 Create a new column called `Quantity` that equals to `Wt` x `Dose` in the `Theoph` dataset. This will tell you the absolute quantity of drug administered to the subject (in mg). Replace the `Dose` variable with `Quantity`.**
-```{r, eval=FALSE}
+```{r}
 pivot_wider(Theoph, c('Wt'*'Dose'), names_to='Quantity')
 ```
 
@@ -163,13 +163,13 @@ pivot_wider(Theoph, c('Wt'*'Dose'), names_to='Quantity')
 
 
 Show data for the 6 subjects with the smallest sum of `Dose` as below. **Do not define new intermediate objects for this exercise; use pipes to chain together functions.**
-```{r, eval=FALSE}
+```{r}
 ## Write your code here
 ```
 
 # Exercise 3. Unemployment in the US 1967-2015 (OPTIONAL)
 This excercise uses the dataset `economics` from the ggplot2 package. It was produced from US economic time series data available from http://research.stlouisfed.org/fred2. It descibes the number of unemployed persons (`unemploy`), among other variables, in the US from 1967 to 2015.
-```{r, eval=FALSE}
+```{r}
 head(economics) %>% kable()
 ```
 
@@ -184,7 +184,7 @@ date       |	pce   |	 pop   | psavert |	uempmed |	unemploy
 1967-12-01 |	525.1	| 199657 |	11.8	 |   4.8	  |  3018
 
 **3.1 Plot the trend in number of unemployed persons (`unemploy`) though time using the economics dataset shown above. And for this question only, hide your code and only show the plot.**
-```{r, eval=FALSE}
+```{r}
 head(economics) %>% kable()
 ggplot(data=economics)+
   (mapping = aes(x=unemploy, y=date))
@@ -192,6 +192,6 @@ ggplot(data=economics)+
 
 
 **3.2 Edit the plot title and axis labels of the previous plot appropriately. Make y axis start from 0. Change the background theme to what is shown below. (Hint: search for help online if needed)**
-```{r, eval=FALSE}
+```{r}
 ## Write your code here
 ```
